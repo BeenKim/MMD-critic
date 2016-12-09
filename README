@@ -1,6 +1,7 @@
 run run_digits.py to reproduce numbers in the paper: 
 
- Examples are not Enough, Learn to Criticize! Criticism for Interpretability. Been Kim*, Rajiv Khanna*, Sanmi Koyejo*. NIPS 2016
+# Examples are not Enough, Learn to Criticize! Criticism for Interpretability. 
+##Been Kim*, Rajiv Khanna*, Sanmi Koyejo*. NIPS 2016
 
 
 @inproceedings{kim2016MMD,

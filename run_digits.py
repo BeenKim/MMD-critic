@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 from pylab import *
 from matplotlib import gridspec
 from classify import Classifier
-from mpi4py import MPI
+#from mpi4py import MPI
 import Helper
 
 
@@ -182,7 +182,7 @@ if __name__ == '__main__':
         [410, 329, 286, 219, 185, 130,
          110])  # test using these number of prototypes
 
-    do_output_pics = 0
+    do_output_pics = 1
     kernel_type = 1 # 1 for local, 0 for global
 
     main(prefix, gamma, m, alltestm, kernel_type, do_output_pics)

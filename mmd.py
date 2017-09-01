@@ -1,6 +1,6 @@
 # maintained by rajivak@utexas.edu
 import numpy as np
-from mpi4py import MPI
+# from mpi4py import MPI
 import sys
 import math
 

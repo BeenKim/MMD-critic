@@ -25,4 +25,8 @@ def dir_exists(filename):
     try:
         os.stat(dir)
     except:
-        os.mkdir(dir)
+	try:
+        	os.mkdir(dir)
+	except:
+		# for Mac mkdir this works:
+        	os.makedirs(dir)

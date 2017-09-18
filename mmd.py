@@ -132,9 +132,9 @@ def greedy_select_protos(K, candidate_indices, m, is_K_sparse=False):
 
         else:
             if is_K_sparse:
-                s1array = s1array - np.log(np.abs(K.diagonal()[candidates]))
+                s1array = s1array - (np.abs(K.diagonal()[candidates]))
             else:
-                s1array = s1array - np.log(np.abs(np.diagonal(K)[candidates]))
+                s1array = s1array - (np.abs(np.diagonal(K)[candidates]))
 
         argmax = candidates[np.argmax(s1array)]
         # print "max %f" %np.max(s1array)

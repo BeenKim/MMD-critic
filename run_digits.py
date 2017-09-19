@@ -65,7 +65,7 @@ def plotfigs2(xx, selectedy, fileprefix=None, printselectionnumbers = False):
         file = fileprefix+str(counter) + '.png'
         if file is not None:
             # print "saving file"
-            plt.savefig(file , dpi='2000')
+            plt.savefig(file , dpi=2000)
 
         begin_at += perpic_m
 

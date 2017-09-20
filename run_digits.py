@@ -1,14 +1,14 @@
 # maintained by rajivak@utexas.edu
-
-from data import Data
+ 
 from mmd import select_criticism_regularized, greedy_select_protos
 import matplotlib.pyplot as plt
-from pylab import *
+from matplotlib.pylab import *
 from matplotlib import gridspec
 
 #from mpi4py import MPI
 
 import classify
+import data
 import helper
 
 
@@ -86,7 +86,7 @@ def plotfigs2(xx, selectedy, fileprefix=None, printselectionnumbers = False):
 ##############################################################################################################################
 def run(filename,  gamma, m, k, ktype, outfig, critoutfig,testfile):
 
-    digitsdat = Data()
+    digitsdat = data.Data()
     digitsdat.load_svmlight(filename, gamma=gamma, docalkernel=False, savefile=None, testfile=testfile, dobin=False)
 
     if ktype == 0:

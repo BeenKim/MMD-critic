@@ -1,13 +1,15 @@
 # maintained by rajivak@utexas.edu
-
-from data import Data
+ 
 from mmd import select_criticism_regularized, greedy_select_protos
 import matplotlib.pyplot as plt
-from pylab import *
+from matplotlib.pylab import *
 from matplotlib import gridspec
-from classify import Classifier
+
 #from mpi4py import MPI
-import Helper
+
+import classify
+import data
+import helper
 
 
 ##############################################################################################################################
@@ -49,7 +51,7 @@ def plotfigs2(xx, selectedy, fileprefix=None, printselectionnumbers = False):
 
         if begin_at == 0 and printselectionnumbers:
             ax=fig.add_subplot(gs[0,:])
-            ax.text(0.1,0.5,Helper.format_numsel(num_selected))
+            ax.text(0.1,0.5,helper.format_numsel(num_selected))
             ax.axis('off')
 
         endd = begin_at + offset+ perpic_m
@@ -84,7 +86,7 @@ def plotfigs2(xx, selectedy, fileprefix=None, printselectionnumbers = False):
 ##############################################################################################################################
 def run(filename,  gamma, m, k, ktype, outfig, critoutfig,testfile):
 
-    digitsdat = Data()
+    digitsdat = data.Data()
     digitsdat.load_svmlight(filename, gamma=gamma, docalkernel=False, savefile=None, testfile=testfile, dobin=False)
 
     if ktype == 0:
@@ -132,7 +134,7 @@ def test_1NN(digitsdat, selected, all_test_m):
 
     for testm in all_test_m:
 
-        classifier = Classifier()
+        classifier = classify.Classifier()
         classifier.build_model(digitsdat.X[selected[0:testm], :], digitsdat.y[ selected[0:testm]])
         print "m=%d error=%f" % ( testm, classifier.classify(digitsdat.testX, digitsdat.testy))
 
@@ -160,7 +162,7 @@ def main(prefix, gamma, m, alltestm, kerneltype, do_output_pics):
         outfig = prefix+'images/'+str(m)+'/protos'
         critoutfig = prefix + 'images/' + str(m) + '/crit'
 
-        Helper.dir_exists(outfig)
+        helper.dir_exists(outfig)
 
     selected, critselected, digitsdat =  run(prefix + 'usps', gamma, m, k, kerneltype, outfig, critoutfig, prefix + 'usps.t')
 

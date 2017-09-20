@@ -1,5 +1,7 @@
 # maintained by rajivak@utexas.edu
 
+import argparse
+import os
 from data import Data
 from mmd import select_criticism_regularized, greedy_select_protos
 import matplotlib.pyplot as plt
@@ -148,7 +150,14 @@ def test_1NN(digitsdat, selected, all_test_m):
 #########################################################################################################################
 #########################################################################################################################
 # start here
-def main(prefix, gamma, m, alltestm, kerneltype, do_output_pics):
+def main(
+      data_prefix,
+      output_prefix,
+      gamma,
+      m,
+      alltestm,
+      kerneltype,
+      do_output_pics):
     ioff()
 
     outfig = None
@@ -157,12 +166,20 @@ def main(prefix, gamma, m, alltestm, kerneltype, do_output_pics):
     k = 0 # number of criticisms
 
     if do_output_pics == 1:
-        outfig = prefix+'images/'+str(m)+'/protos'
-        critoutfig = prefix + 'images/' + str(m) + '/crit'
+        outfig = os.path.join(output_prefix, 'images/%d/protos' % m)
+        critoutfig = os.path.join(output_prefix, 'images/%d/crit' % m)
 
         Helper.dir_exists(outfig)
 
-    selected, critselected, digitsdat =  run(prefix + 'usps', gamma, m, k, kerneltype, outfig, critoutfig, prefix + 'usps.t')
+    selected, critselected, digitsdat = run(
+            os.path.join(data_prefix, 'usps'),
+            gamma,
+            m,
+            k,
+            kerneltype,
+            outfig,
+            critoutfig,
+            os.path.join(data_prefix, 'usps.t'))
 
     test_1NN(digitsdat, selected, alltestm)
 
@@ -170,8 +187,21 @@ def main(prefix, gamma, m, alltestm, kerneltype, do_output_pics):
 
 
 if __name__ == '__main__':
-    import os
-    prefix = os.getcwd() + '/data/'
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+        "--data_directory",
+        type=str,
+        default=os.path.join(os.getcwd(), 'data'),
+        help="The directory that contains data such as the usps file.")
+    parser.add_argument(
+        "--output_directory",
+        type=str,
+        default="/tmp",
+        help="The directory in which to output data.")
+    FLAGS, unparsed = parser.parse_known_args()
+
+    data_prefix = FLAGS.data_directory
+    output_prefix = os.path.join(FLAGS.output_directory, "data")
     gamma = 0.026 # kernel parameter, obtained after cross validation
 
     #m= 4433 # total number of prototypes to select
@@ -185,7 +215,7 @@ if __name__ == '__main__':
     do_output_pics = 1
     kernel_type = 1 # 1 for local, 0 for global
 
-    main(prefix, gamma, m, alltestm, kernel_type, do_output_pics)
+    main(data_prefix, output_prefix, gamma, m, alltestm, kernel_type, do_output_pics)
 
 
 

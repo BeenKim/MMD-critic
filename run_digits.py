@@ -12,6 +12,9 @@ from classify import Classifier
 import Helper
 
 
+DATA_DIRECTORY = os.path.join(os.getcwd(), 'data')
+
+
 ##############################################################################################################################
 # plotter function to draw the selected prototypes/criticisms
 # ARGS :
@@ -191,7 +194,7 @@ if __name__ == '__main__':
     parser.add_argument(
         "--data_directory",
         type=str,
-        default=os.path.join(os.getcwd(), 'data'),
+        default=DATA_DIRECTORY,
         help="The directory that contains data such as the usps file.")
     parser.add_argument(
         "--output_directory",

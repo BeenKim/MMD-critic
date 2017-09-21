@@ -1,4 +1,7 @@
 # maintained by rajivak@utexas.edu
+
+import os
+
 import numpy as np
 
 def format_numsel(numsel):
@@ -19,14 +22,13 @@ def exit(str):
 
 
 def dir_exists(filename):
-    import os
+    """Creates the directory of a file if the directory does not exist.
+    
+    Raises:
+      IOError: If the directory could not be created (and the directory does not
+          exist). This may be due to for instance permissions issues or a race
+          condition in which the directory is created right before makdirs runs.
+    """
     dir = os.path.dirname(filename)
-
-    try:
-        os.stat(dir)
-    except:
-	try:
-        	os.mkdir(dir)
-	except:
-		# for Mac mkdir this works:
-        	os.makedirs(dir)
+    if not os.path.exists(dir):
+        os.makedirs(dir)

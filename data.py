@@ -29,15 +29,15 @@ class Data:
     def subset(self, i):
         return np.where(y==i)[0]
 
-    def load_data(self, dataX, dataY, gamma=None, docalkernel=False, savefile=None, testfile=None, dobin=False):
-      self.X = dataX
+    def load_data(self, X, y, gamma=None, docalkernel=False, savefile=None, testfile=None, dobin=False):
+      self.X = X
       if dobin:
           bins = [-1.0, -0.67, -0.33, 0, 0.33, 0.67, 1.0]
           # bins = [-1.0, 0, 1.0]
           binned  = np.digitize(self.X, bins )
           self.X=np.array([bins[binned[i, j] - 1] for i in range(np.shape(self.X)[0]) for j in range(np.shape(self.X)[1])]).reshape(np.shape(self.X))
 
-      self.y = dataY
+      self.y = y
       if testfile is not None:
           dat2 = load_svmlight_file(testfile)
           self.testX = dat2[0].todense()
@@ -54,7 +54,7 @@ class Data:
 
     def load_svmlight(self, filename, gamma=None, docalkernel=False, savefile=None, testfile=None, dobin=False):
         data = load_svmlight_file(filename)
-        load_data(data[0].todense(), data[1], gamma, docalkernel, savefile, testfile, dobin)
+        self.load_data(data[0].todense(), data[1], gamma, docalkernel, savefile, testfile, dobin)
 
     def calculate_kernel(self, g=None):
         if g is None:

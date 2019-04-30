@@ -1,5 +1,5 @@
 # maintained by rajivak@utexas.edu
-
+from __future__ import print_function
 import argparse
 import os
 from data import Data
@@ -28,10 +28,10 @@ def plotfigs2(xx, selectedy, fileprefix=None, printselectionnumbers = False):
     num_selected = np.array([0] * 10)
     for ii in range(10):
         num_selected[ii] = len(np.where(selectedy == (ii + 1))[0])
-        print ii, num_selected[ii]
+        print(ii, num_selected[ii])
 
     totm = np.shape(xx)[0]
-    print "number of images being printed %d" %totm
+    print("number of images being printed %d" %totm)
     perpic_m = 40
     begin_at = 0
     counter = 0
@@ -40,7 +40,7 @@ def plotfigs2(xx, selectedy, fileprefix=None, printselectionnumbers = False):
     while counter < int(totm/perpic_m) + 1:
 
         counter += 1
-        print "counter %d " % counter
+        print("counter %d " % counter)
 
         offset = 0
         if begin_at == 0:
@@ -60,7 +60,7 @@ def plotfigs2(xx, selectedy, fileprefix=None, printselectionnumbers = False):
         endd = begin_at + offset+ perpic_m
         if endd-offset > totm:
             endd = totm +offset
-        print " begin %d, end %d" %(begin_at + offset, endd)
+        print(" begin %d, end %d" %(begin_at + offset, endd))
         for i in np.array(range(begin_at + offset, endd)):
             ax = fig.add_subplot(gs[i - begin_at])
             #ax.imshow(xx[i - offset, :].reshape((16, 16)), cmap="Greys_r")
@@ -69,7 +69,7 @@ def plotfigs2(xx, selectedy, fileprefix=None, printselectionnumbers = False):
 
         file = fileprefix+str(counter) + '.png'
         if file is not None:
-            # print "saving file"
+            # print("saving file")
             plt.savefig(file , dpi=2000)
 
         begin_at += perpic_m
@@ -94,17 +94,17 @@ def run(filename,  gamma, m, k, ktype, outfig, critoutfig,testfile):
 
     if ktype == 0:
         digitsdat.calculate_kernel()
-        print "Running Kernel type : global "
+        print("Running Kernel type : global ")
     else:
         digitsdat.calculate_kernel_individual()
-        print "Running Kernel type : local "
+        print("Running Kernel type : local ")
 
 
 
     # selected = greedy_parallel(digitsdat.kernel, m)
-    # print np.sort(selected)
+    # print(np.sort(selected))
     selected = greedy_select_protos(digitsdat.kernel, np.array(range(np.shape(digitsdat.kernel)[0])), m)
-    # print np.sort(selected)
+    # print(np.sort(selected))
         # critselected = select_criticism(digitsdat.kernel, selected, k)
     selectedy = digitsdat.y[selected]
     sortedindx = np.argsort(selectedy)
@@ -139,14 +139,14 @@ def test_1NN(digitsdat, selected, all_test_m):
 
         classifier = Classifier()
         classifier.build_model(digitsdat.X[selected[0:testm], :], digitsdat.y[ selected[0:testm]])
-        print "m=%d error=%f" % ( testm, classifier.classify(digitsdat.testX, digitsdat.testy))
+        print("m=%d error=%f" % ( testm, classifier.classify(digitsdat.testX, digitsdat.testy)))
 
         # uncomment for stats on how many protos were selected for each type of digit.
         #num_selected = np.array([0] * 10)
 
         #for ii in range(10):
         #   num_selected[ii] = len(np.where(selectedy == (ii + 1))[0])
-        #   print ii, num_selected[ii]
+        #   print(ii, num_selected[ii])
 
 
 #########################################################################################################################
@@ -186,7 +186,7 @@ def main(
 
     test_1NN(digitsdat, selected, alltestm)
 
-    print "...done"
+    print("...done")
 
 
 if __name__ == '__main__':

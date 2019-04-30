@@ -1,4 +1,5 @@
 # maintained by rajivak@utexas.edu
+from __future__ import print_function
 from sklearn.datasets import load_svmlight_file
 import numpy as np
 from sklearn.datasets import load_svmlight_file
@@ -47,7 +48,7 @@ class Data:
               self.testX = np.array([bins[binned[i, j] - 1] for i in range(np.shape(self.testX)[0]) for j in range(np.shape(self.testX)[1])]).reshape(np.shape(self.testX))
 
           self.testy = dat2[1]
-      # print np.shape(self.X)
+      # print(np.shape(self.X))
 
       self.gamma = gamma
       self.kernel = rbf_kernel(self.X, gamma=gamma)
@@ -59,7 +60,7 @@ class Data:
     def calculate_kernel(self, g=None):
         if g is None:
             if self.gamma is None:
-                print "gamma not provided!"
+                print("gamma not provided!")
                 exit(1)
             else:
                 self.kernel = rbf_kernel(self.X, gamma=self.gamma)
@@ -72,7 +73,7 @@ class Data:
         if touseg is None:
             touseg = self.gamma
         if touseg is None:
-            print "gamma not provided!"
+            print("gamma not provided!")
             exit(1)
         self.kernel = np.zeros((np.shape(self.X)[0], np.shape(self.X)[0]) )
         sortind = np.argsort(self.y)
@@ -123,7 +124,7 @@ if __name__ == "__main__":
     file = 'data/usps'
     data=load_svmlight_file(file)
     X = data[0].todense()
-    print data[1]
+    print(data[1])
     plt.imshow(X[2,:].reshape((16,16)))
     plt.show()
 

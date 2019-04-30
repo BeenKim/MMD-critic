@@ -1,4 +1,5 @@
 # maintained by rajivak@utexas.edu
+from __future__ import print_function
 import numpy as np
 from sklearn.neighbors import KNeighborsClassifier
 
@@ -10,13 +11,13 @@ class Classifier:
         pass
 
     def build_model(self, trainX, trainy):
-        print "building model using %d points " %len(trainy)
+        print("building model using %d points " %len(trainy))
         self.model = KNeighborsClassifier(n_neighbors=1)
         self.model.fit(trainX, trainy)
 
     def classify(self, testX, testy):
 
-        print "classifying %d points " %len(testy)
+        print("classifying %d points " %len(testy))
         predy = self.model.predict(testX)
 
         ncorrect = np.sum(predy == testy)

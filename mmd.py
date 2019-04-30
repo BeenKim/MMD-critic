@@ -1,4 +1,5 @@
 # maintained by rajivak@utexas.edu
+from __future__ import print_function
 import numpy as np
 # from mpi4py import MPI
 import sys
@@ -21,7 +22,7 @@ def select_criticism_regularized(K, selectedprotos, m, reg='logdet', is_K_sparse
     if reg in ['None','logdet','iterative']:
         pass
     else:
-        print "wrong regularizer :" + regularizer
+        print("wrong regularizer :" + reg)
         exit(1)
     options = dict()
 
@@ -137,7 +138,7 @@ def greedy_select_protos(K, candidate_indices, m, is_K_sparse=False):
                 s1array = s1array - (np.abs(np.diagonal(K)[candidates]))
 
         argmax = candidates[np.argmax(s1array)]
-        # print "max %f" %np.max(s1array)
+        # print("max %f" %np.max(s1array))
 
         selected = np.append(selected, argmax)
         # value = np.append(value,maxx)

@@ -1,5 +1,7 @@
 # maintained by rajivak@utexas.edu
-
+from __future__ import absolute_import
+from __future__ import division
+from __future__ import print_function
 import os
 
 import numpy as np
@@ -17,7 +19,7 @@ def get_train_testindices(n, ntest, seed):
     return trainindices, testindices
 
 def exit(str):
-    print str
+    print(str)
     exit(1)
 
 

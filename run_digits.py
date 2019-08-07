@@ -12,7 +12,7 @@ from matplotlib import gridspec
 from classify import Classifier
 #from mpi4py import MPI
 import Helper
-
+import numpy as np
 
 DATA_DIRECTORY = os.path.join(os.getcwd(), 'data')
 
@@ -51,7 +51,7 @@ def plotfigs2(xx, selectedy, fileprefix=None, printselectionnumbers = False):
             offset = 0
 
         # m=m+offset  # for num_selected
-        gs = gridspec.GridSpec(int(perpic_m/perrow)+offset/perrow, perrow, wspace=0.0, hspace=0.0)
+        gs = gridspec.GridSpec(int(perpic_m/perrow)+int(offset/perrow), perrow, wspace=0.0, hspace=0.0)
         fig = plt.figure()
 
         if begin_at == 0 and printselectionnumbers:
@@ -64,9 +64,9 @@ def plotfigs2(xx, selectedy, fileprefix=None, printselectionnumbers = False):
             endd = totm +offset
         print(" begin %d, end %d" %(begin_at + offset, endd))
         for i in np.array(range(begin_at + offset, endd)):
-            ax = fig.add_subplot(gs[i - begin_at])
+            ax = fig.add_subplot(gs[int(i) - begin_at])
             #ax.imshow(xx[i - offset, :].reshape((16, 16)), cmap="Greys_r")
-            ax.imshow(xx[i - offset, :].reshape((16, 16)))
+            ax.imshow(xx[int(i) - offset, :].reshape((16, 16)))
             ax.axis('off')
 
         file = fileprefix+str(counter) + '.png'
@@ -175,6 +175,7 @@ def main(
         critoutfig = os.path.join(output_prefix, 'images/%d/crit' % m)
 
         Helper.dir_exists(outfig)
+
 
     selected, critselected, digitsdat = run(
             os.path.join(data_prefix, 'usps'),
